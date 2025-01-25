@@ -5,7 +5,7 @@ public:
 	Timer(long timerDuration);
 
 	void start();
-	bool hasExpired();
+	bool stillCounting();
 	long getTimeLeft();
 	void printTimeLeftDebug();
 

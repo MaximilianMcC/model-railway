@@ -6,6 +6,7 @@ Timer::Timer(long timerDuration) {
 
 	// Set the duration
 	duration = timerDuration;
+	startTime = 0;
 }
 
 void Timer::start() {
@@ -14,13 +15,13 @@ void Timer::start() {
 	startTime = millis();
 }
 
-bool Timer::hasExpired() {
+bool Timer::stillCounting() {
 
 	// Check for how long the timer has been running
 	long timeElapsed = millis() - startTime;
 
 	// Return depending on the status
-	return timeElapsed >= duration;
+	return timeElapsed <= duration;
 }
 
 long Timer::getTimeLeft() {
@@ -35,7 +36,7 @@ long Timer::getTimeLeft() {
 void Timer::printTimeLeftDebug() {
 
 	char output[100];
-	sprintf(output, "Time left: %d", getTimeLeft());
+	sprintf(output, "Time left: %ldms", getTimeLeft());
 
 	if (getTimeLeft() >= 0) Serial.println(output);
 }

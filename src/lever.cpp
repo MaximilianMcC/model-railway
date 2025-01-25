@@ -25,35 +25,32 @@ void Lever::update() {
 
 	// Check for if the state changed
 	// then pulse the required relay
-	if (stateChanged()) Serial.println("Changed");
-	debounceCooldown.printTimeLeftDebug();
+	if (stateChanged()) {
 
+		
+	}
 }
 
 bool Lever::stateChanged() {
 	
-	// Get the current state of the lever
-	bool stateChanged = false;
-	bool pressed = digitalRead(pin) == LOW;
+	// Check for if we're on cooldown rn. If we are
+	// then exit early (can't do anything (on cooldown))
+	if (debounceCooldown.stillCounting()) return false;
 
-	// Check for if we're on debounce (was just pressed)
-	if (debounceCooldown.hasExpired() == false) {
+	// Check if the switch is down or up rn
+	bool currentlyPressed = digitalRead(pin) == LOW;
+	bool changed = previouslyPressed != currentlyPressed;
 
-		// Check for if the state has changed.
-		// if it has we pressed the lever
-		if (pressed != previouslyPressed) {
+	// Check for if we've pressed the switch. If we
+	// have then rest the debounce cooldown
+	if (changed) {
 
-			// Start the debounce timer
-			debounceCooldown.start();
-
-			// Say that the state changed
-			stateChanged = true;
-		}
+		// Put the switch on a cooldown
+		// so we don't get debounce
+		debounceCooldown.start();
 	}
 
-	// Record the state for next time
-	previouslyPressed = pressed;
-
-	// Say if the lever has been changed
-	return stateChanged;
+	// Update the last pressed state then return
+	previouslyPressed = currentlyPressed;
+	return changed;
 }
