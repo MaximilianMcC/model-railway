@@ -3,6 +3,8 @@ This has the electronics and control system for my OO gauge model railway. It is
 
 Operation can be done via a physical lever frame, and also digitally. Everything happens in the Arduino.
 
+Also this is my first time properly using c++ so the code might be a bit mank. I'm tryna write it like how I would in C# or Java or something
+
 # Railway lore
 The railway is based in a fictional part of England somewhere in the west midlands. The layout is in a fictional part of what was the LNWR, but is now operated by the grouping companies GWR and LMS.
 

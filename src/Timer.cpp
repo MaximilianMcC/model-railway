@@ -2,7 +2,6 @@
 #include <Arduino.h>
 
 Timer::Timer() {}
-
 Timer::Timer(long timerDuration) {
 
 	// Set the duration
@@ -24,11 +23,19 @@ bool Timer::hasExpired() {
 	return timeElapsed >= duration;
 }
 
-long Timer::timeLeft() {
+long Timer::getTimeLeft() {
 
 	// Check for how long the timer has been running
 	long timeElapsed = millis() - startTime;
 
 	// Give back the time left
 	return duration - timeElapsed;
+}
+
+void Timer::printTimeLeftDebug() {
+
+	char output[100];
+	sprintf(output, "Time left: %d", getTimeLeft());
+
+	if (getTimeLeft() >= 0) Serial.println(output);
 }

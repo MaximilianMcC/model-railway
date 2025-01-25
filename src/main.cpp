@@ -1,11 +1,8 @@
 #include <Arduino.h>
 #include "lever.h"
-#include "timer.h"
 
 const int LeverCount = 15;
 Lever Levers[LeverCount];
-
-Timer timer;
 
 void setup() {
 
@@ -19,18 +16,16 @@ void setup() {
 	// Set what levers go to what relays
 	// TODO: Don't hardcode (json or something)
 	Levers[0] = Lever(2, 0, 1);
-
-	timer = Timer(200);
-	timer.start();
 }
 
 void loop() {
 	
-	Serial.println(timer.hasExpired() ? "expired" : "running");
-
 	// Update all levers
 	for (int i = 0; i < LeverCount; i++) {
 
 		Levers[i].update();
 	}
+
+	// Serial.print("State rn: ");
+	// Serial.println(digitalRead(2));
 }

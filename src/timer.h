@@ -6,7 +6,8 @@ public:
 
 	void start();
 	bool hasExpired();
-	long timeLeft();
+	long getTimeLeft();
+	void printTimeLeftDebug();
 
 private:
 	long startTime;
