@@ -11,10 +11,9 @@ Lever::Lever(int leverPin, int relayUnit, int relayOpenIndex) {
 	pinMode(pin, INPUT_PULLUP);
 	previouslyPressed = digitalRead(pin) == LOW;
 
-	// Set the relay info
-	this->relayUnit = relayUnit;
-	this->relayOpenIndex = relayOpenIndex;
-	this->relayCloseIndex = relayOpenIndex + 1;
+	// Create both relays
+	openRelay = new Relay(relayUnit, relayOpenIndex);
+	closeRelay = new Relay(relayUnit, relayOpenIndex + 1);
 
 	// Setup the debounce timer
 	// to be 50 milliseconds
@@ -26,9 +25,20 @@ void Lever::update() {
 	// Check for if the state changed
 	// then pulse the required relay
 	if (stateChanged()) {
-
 		
+		// Check for what relay we're after
+		//? Pressed == open
+		Relay* relay = previouslyPressed ? openRelay : closeRelay;
+
+		// Pluse the relay
+		relay->beginPulse();
 	}
+
+	// Check for if any of the relays
+	// need their pulsing to be stopped
+	// TODO: Maybe only call on previouslyPressed?
+	openRelay->endPulse();
+	closeRelay->endPulse();
 }
 
 bool Lever::stateChanged() {

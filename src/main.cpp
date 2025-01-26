@@ -25,7 +25,4 @@ void loop() {
 
 		Levers[i].update();
 	}
-
-	// Serial.print("State rn: ");
-	// Serial.println(digitalRead(2));
 }

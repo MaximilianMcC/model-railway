@@ -1,8 +1,8 @@
-#ifndef LEVER_H
-#define LEVER_H
+#pragma once
 
 #include <Arduino.h>
 #include "timer.h"
+#include "relay.h"
 
 class Lever {
 public:
@@ -16,12 +16,9 @@ public:
 private:
 	int pin;
 
-	int relayUnit;
-	int relayOpenIndex;
-	int relayCloseIndex;
+	Relay* openRelay;
+	Relay* closeRelay;
 
 	Timer debounceCooldown;
 	bool previouslyPressed;
 };
-
-#endif
