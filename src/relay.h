@@ -7,7 +7,6 @@ class Relay
 {
 public:
 	Relay(int unit, int index);
-	~Relay();
 
 	void executeCommand(char commandType);
 	void beginPulse();

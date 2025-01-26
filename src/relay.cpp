@@ -23,14 +23,6 @@ Relay::Relay(int relayUnit, int relayIndex)
 	pulseClock = Timer(250);
 }
 
-Relay::~Relay()
-{
-	// Get rid of the serial port
-	// pointer since its not gonna
-	// be used anymore
-	delete serialPort;
-}
-
 void Relay::executeCommand(char commandType) {
 
 	// Make the command
