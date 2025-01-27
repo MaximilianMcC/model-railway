@@ -1,9 +1,11 @@
 #include "lever.h"
 #include <Arduino.h>
 
-//? relayUnit is zero based. relayOpenIndex is not.
 Lever::Lever() {}
-Lever::Lever(int leverPin, int relayUnit, int relayOpenIndex) {
+
+// Make a lever that operates between two relays
+//? relayUnit is zero based. relayOpenIndex is not.
+Lever::Lever(int leverPin, int relayUnit, int relayOpenIndex, bool single) {
 
 	// Setup the pin info
 	//! Pretty sure pin goes to 0 for some reason. fix (rn (now))
@@ -11,9 +13,12 @@ Lever::Lever(int leverPin, int relayUnit, int relayOpenIndex) {
 	pinMode(pin, INPUT_PULLUP);
 	previouslyPressed = digitalRead(pin) == LOW;
 
-	// Create both relays
+	// See if we're using a single relay
+	singleRelay = single;
+
+	// Create the needed relays
 	openRelay = new Relay(relayUnit, relayOpenIndex);
-	closeRelay = new Relay(relayUnit, relayOpenIndex + 1);
+	if (singleRelay == false) closeRelay = new Relay(relayUnit, relayOpenIndex + 1);
 
 	// Setup the debounce timer
 	// to be 50 milliseconds
@@ -27,8 +32,13 @@ void Lever::update() {
 	if (stateChanged()) {
 		
 		// Check for what relay we're after
-		//? Pressed == open
-		Relay* relay = previouslyPressed ? openRelay : closeRelay;
+		// TODO: Don't do this like this
+		Relay* relay;
+		relay = previouslyPressed ? openRelay : closeRelay;
+
+		// If we're only working with one relay
+		// then use the only relay we have
+		if (singleRelay) relay = openRelay;
 
 		// Pluse the relay
 		relay->beginPulse();

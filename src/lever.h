@@ -7,7 +7,7 @@
 class Lever {
 public:
 	Lever();
-	Lever(int leverPin, int relayUnit, int relayOpenIndex);
+	Lever(int leverPin, int relayUnit, int relayOpenIndex, bool single);
 
 	void update();
 	
@@ -16,6 +16,7 @@ public:
 private:
 	int pin;
 
+	bool singleRelay;
 	Relay* openRelay;
 	Relay* closeRelay;
 

@@ -15,7 +15,8 @@ void setup() {
 
 	// Set what levers go to what relays
 	// TODO: Don't hardcode (json or something)
-	Levers[0] = Lever(2, 0, 1);
+	// Levers[0] = Lever(2, 0, 1, false);
+	Levers[0] = Lever(2, 0, 1, true);
 }
 
 void loop() {
