@@ -19,8 +19,9 @@ Relay::Relay(int relayUnit, int relayIndex)
 	}
 
 	// Make the pulse timer to
-	// go for 250 milliseconds
-	pulseClock = Timer(250);
+	// go for 100 milliseconds
+	//? + 10 is because theres a 10ms delay to let the serial send
+	pulseClock = Timer(100 + 10);
 }
 
 void Relay::executeCommand(char commandType) {
