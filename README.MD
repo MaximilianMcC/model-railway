@@ -1,13 +1,12 @@
 # Model Railway
-This has the electronics and control system for my OO gauge model railway. It is all powered by an Arduino Mega.
+Control system for my 00 gauge model railway. It is a pre-grouping colliery set on the LNWR.
 
-Operation can be done via a physical lever frame, and also digitally. Everything happens in the Arduino.
+# Docs and whatnot
+This is just for me because idk what im doing
 
-Also this is my first time properly using c++ so the code might be a bit mank. I'm tryna write it like how I would in C# or Java or something
+## Relay and isolation
+Sections of the layout are electrically isolated then togglable via relays. I use an UD23A08 8-Channel Serial Relay Controller.
 
-# Railway lore
-The railway is based in a fictional part of England somewhere in the west midlands. The layout is in a fictional part of what was the LNWR, but is now operated by the grouping companies GWR and LMS.
+On the left-hand side of it there are three pins for data transfer which are used to give the commands to the relay: `GND` `TXD` `RXD`. On the Arduino Uno then pin 11 goes to `RXD` and pin 10 goes to `TXD`. `GND` goes to `GND` too.
 
-The layout is based in a semi-industrial goods yard. The whole town area thing is located on the edge of the English countryside as it branches into a sort of industrial section of the UK. Both the countryside of the Great Western, and the metropolitan aspects of the LMS are present.
-
-The time period is around the 1930's to early 1940's, however there is currently no set date. Steam is still the main thing that powers Great Britain and the world. Accuracy doesn't really matter to me
+On the right-hand side of the it there are two pins for power input: `GND` `VIN`. This takes 12v and will probably want to be powered differently to the train controller (that's for trains *only*)
